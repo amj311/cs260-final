@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Homemade+Apple|La+Belle+Aurore&display=swap');
 :root {
     --blue: skyblue;
+    --primary: skyblue;
+    --secondary: #aaa;
 }
 
 ::-webkit-scrollbar {
@@ -35,6 +37,48 @@ body {
     font-size: 14px;
 }
 
+
+/* ALL Buttons */
+.btn {
+    border: .1em solid !important;
+    padding: .3em .4em;
+    border-radius: 0.3em;
+    user-select: none;
+    cursor: pointer;
+}
+
+.btn:hover, .btn:active {
+    box-shadow: 0 0 .2em #00000055;
+}
+
+.btn.btn-primary {
+    color: var(--primary) !important;
+    border-color: var(--primary) !important;
+    background-color: var(--primary) !important;
+}
+
+.btn.btn-secondary {
+    color: var(--secondary) !important;
+    border-color: var(--secondary) !important;
+    background: var(--secondary) !important;
+}
+
+.btn:not(.btn-outline) {
+    color: #fff !important;
+}
+
+.btn.btn-outline {
+    background: transparent !important;
+}
+
+
+
+
+
+
+
+
+
 #main-view {
     position: relative;
     display: flex;
@@ -53,12 +97,15 @@ body {
     left: 0;
     flex-grow: 1;
     border: 1px solid #eee;
+    display: flex;
+    overflow: hidden;
 }
 
 .fs-inner-wrapper {
     position: relative;
     width: 100%;
     height: 100%;
+    flex-grow: 1;
 }
 
 #timeline-box {
@@ -116,10 +163,14 @@ div#flatLine {
     max-height: 3rem;
 }
 
-.piecePos:hover {
+.piecePos:hover, .piecePos.new, .piecePos:target {
     color: var(--blue);
     border-left-width: 2px;
     z-index: 10;
+}
+
+.addingNew .piecePos:not(.new) {
+    opacity: .7
 }
 
 
@@ -132,7 +183,7 @@ div#flatLine {
     top: 0;
     transform: translate(-1px, -90%);
 }
-.piecePos:hover .card {
+.piecePos:hover .card, .piecePos.new .card, .piecePos:target .card {
     box-shadow: 0 0 5px;
     margin-left: -1px;
 }
@@ -180,13 +231,12 @@ div#flatLine {
     display: none;
 }
 
-.piecePos.hasImg:hover .info {
+.piecePos:hover .info, .piecePos.new .info, .piecePos:target .info {
     display: block;
 }
 
 .card .info .title {
     font-weight: bold;
-    font-size: 1.1em;
 }
 
 .card .note {
@@ -201,23 +251,24 @@ div#timeline-wrapper #controls > div {
     position: absolute;
     padding: .5em;
     top: 0;
+    left: 0;
+    z-index: 10;
 }
 
 #addPieceBox {
     right: 0;
+    left: initial !important;
 }
 
 div#controls .btn {
+    color: initial !important;
     background: #fff;
     box-shadow: 0 0 3px;
     margin: .5em;
-    border-radius: .2em;
     text-align: center;
     line-height: 1.5em;
-    cursor: pointer;
-    padding: .5em;
-    user-select: none;
     z-index: 15;
+    border: none !important;
 }
 
 div#controls .btn.zoom {
@@ -231,6 +282,34 @@ div#zoomIn::before {
 
 div#zoomOut::before {
     content: '\2212';
+}
+
+
+/* Right Panel and Form */
+div#right_panel {
+    z-index: 10;
+    background: #fff;
+    box-shadow: 0 0 1em -0.5em;
+    width: 0;
+    overflow: hidden;
+    padding: 0;
+    transition: 200ms;
+    position: relative;
+}
+div#right_panel.open {
+    width: 70%;
+    max-width: 18em;
+}
+
+#right_panel .content-wrapper {
+    position: absolute;
+    width: 900px;
+    left: 0;
+    padding: 1em;
+    transition: 200ms;
+}
+#right_panel.open .content-wrapper {
+    width: 100%;
 }
 
 

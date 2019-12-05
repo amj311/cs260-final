@@ -26,6 +26,19 @@ var app = new Vue ({
         MONTH: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "Novemeber", "December"],
         isMobile: false,
         dividerHeight: 0,
+        addingNew: false,
+        newPieceDefault: {
+            "name":"New Artwork",
+            "artist":null,
+            "day": null,
+            "month": null,
+            "year":null,
+            "pos":50,
+            "img":null,
+            "period":"15 Cen North Renaissance",
+            "id":2,
+            isNewPlaceholder: true,
+            },
     },
 
     async created() {
@@ -36,6 +49,38 @@ var app = new Vue ({
 
     watch: {
         gallery: function() {
+            this.setZoom()
+        },
+    },
+
+    methods: {
+        getPieces() {
+            this.gallery = galleryData;
+        },
+
+        openAddForm(){
+            if(!this.addingNew){
+                this.addingNew = true;
+                this.gallery.push(this.newPieceDefault)
+                this.newPiece.year = Math.floor((document.querySelector('#timeline-box').scrollLeft + 50) / this.yearUnit + this.startYear);
+            }
+        },
+        addPiece(){
+            this.closeAddForm();
+        },
+        cancelAddForm(){
+            this.gallery = this.gallery.filter( p => !p.isNewPlaceholder )
+            this.setZoom();
+            this.closeAddForm();
+        },
+        closeAddForm(){
+            if(this.addingNew){
+                this.addingNew = false;
+            }
+        },
+
+
+        setZoom(){
             let years = this.gallery.map(e => e.year)
             this.dateMax = Math.max.apply(null, years)
             this.dateMin = Math.min.apply(null, years)
@@ -50,18 +95,7 @@ var app = new Vue ({
             this.numEras = Math.ceil(range/this.eraDuration) + 2;
 
             this.minYearUnit = (window.innerWidth - 1) / (this.eraDuration * this.numEras)
-            this.yearUnit = this.minYearUnit;
-        },
-    },
-
-    methods: {
-        getPieces() {
-            this.gallery = galleryData;
-            this.notes = notesData;
-
-            fetch('records.html')
-                .then( res => {return res.text()})
-                .then( html => { app.recordsHTML = html })
+            this.yearUnit = this.minYearUnit * 1.3;
         },
         setTheaterImage(obj) {
             this.theaterMode = 'img'
@@ -97,7 +131,7 @@ var app = new Vue ({
 
             if (y != 0 && !this.zoomTimeout){
                 if(Math.abs(y) > 1){
-                    this.changeEraZoom(y/250)
+                    this.changeEraZoom(y/500)
 
                     this.zoomTimeout = true;
         
@@ -107,10 +141,11 @@ var app = new Vue ({
         },
 
         changeEraZoom(delta) {
+            let oldUnit = this.yearUnit;
             this.yearUnit = Math.max(this.minYearUnit, this.yearUnit + delta);
             // console.log(this.minYearUnit, this.yearUnit);
 
-            document.querySelector('#timeline-box').scrollLeft += delta*35
+            document.querySelector('#timeline-box').scrollLeft *= this.yearUnit/oldUnit;
         },
     },
 
@@ -140,6 +175,10 @@ var app = new Vue ({
                 array.push(obj)
             })
             return array;
+        },
+
+        newPiece() {
+            return this.gallery.filter( p => p.isNewPlaceholder )[0]
         }
     }
 })
