@@ -101,7 +101,7 @@ div#flatLine {
     height: 100%;
 }
 
-.eventPos {
+.piecePos {
     color: #00000033;
     position: absolute;
     bottom: 0%;
@@ -109,14 +109,14 @@ div#flatLine {
     width: .5em;
     z-index: 1;
 }
-.eventPos.hasImg {
+.piecePos.hasImg {
     z-index: 2;
 }
-.eventPos.ext {
+.piecePos.ext {
     max-height: 3rem;
 }
 
-.eventPos:hover {
+.piecePos:hover {
     color: var(--blue);
     border-left-width: 2px;
     z-index: 10;
@@ -132,7 +132,7 @@ div#flatLine {
     top: 0;
     transform: translate(-1px, -90%);
 }
-.eventPos:hover .card {
+.piecePos:hover .card {
     box-shadow: 0 0 5px;
     margin-left: -1px;
 }
@@ -170,17 +170,17 @@ div#flatLine {
 }
 
 
-.eventPos .info {
+.piecePos .info {
     color: #111;
     width: max-content;
     max-width: 20em;
 }
 
-.eventPos.hasImg .info {
+.piecePos.hasImg .info {
     display: none;
 }
 
-.eventPos.hasImg:hover .info {
+.piecePos.hasImg:hover .info {
     display: block;
 }
 
@@ -211,7 +211,7 @@ div#flatLine {
 .openRecord:hover {
     background: #f3f3f3;
 }
-.eventPos:hover .openRecord {
+.piecePos:hover .openRecord {
     display: block;
 }
 .openRecord::before {
@@ -226,7 +226,7 @@ div#timeline-wrapper #controls > div {
     top: 0;
 }
 
-#addEventBox {
+#addPieceBox {
     right: 0;
 }
 

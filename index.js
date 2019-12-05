@@ -33,7 +33,7 @@ var app = new Vue ({
     },
 
     async created() {
-        this.getEvents()
+        this.getPieces()
 
         this.isMobile = window.mobileAndTabletCheck();
     },
@@ -59,7 +59,7 @@ var app = new Vue ({
     },
 
     methods: {
-        getEvents() {
+        getPieces() {
             this.gallery = galleryData;
             this.notes = notesData;
 
@@ -112,8 +112,8 @@ var app = new Vue ({
             this.subsOn = !this.subsOn;
         },
 
-        doScroll(event) {
-            var y = event.deltaY;
+        doScroll(piece) {
+            var y = piece.deltaY;
             let ival = 50;
 
             if (y != 0 && !this.zoomTimeout){

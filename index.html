@@ -11,7 +11,7 @@
     <div id="main-view">
 
         <div id="person-summary">
-            <h1>Robert Harris Jr</h1>
+            <h1>Art Gallery</h1>
         </div>
 
         <div id="timeline-wrapper" onwheel="app.doScroll(event)">
@@ -22,24 +22,22 @@
             </div>
 
             <div id="gallery">
-                <div v-for="event in galleryEls" :id="event.idString" :class="{eventPos: true, hasImg: event.img, ext: event.type === 'ext'}" :style="{left: `${event.netPos}px`, height: `calc( (100% - ${dividerHeight}rem) * ${event.pos/100} + ${dividerHeight}rem)`}">
+                <div v-for="piece in galleryEls" :id="piece.idString" :class="{piecePos: true, hasImg: piece.img, ext: piece.type === 'ext'}" :style="{left: `${piece.netPos}px`, height: `calc( (100% - ${dividerHeight}rem) * ${piece.pos/100} + ${dividerHeight}rem)`}">
                     <div class="card">
 
-                        <div v-if="event.img" class="image">
-                            <img :src="event.img" :alt="event.name">
-                            <div class="openTheater" @click="setTheaterImage(event)"></div>
+                        <div v-if="piece.img" class="image">
+                            <img :src="piece.img" :alt="piece.name">
+                            <div class="openTheater" @click="setTheaterImage(piece)"></div>
                         </div>
                         
                         <div class="info">
-                            <div class="title">{{event.name}}</div>
-                            <div class="date" v-if="!event.img"><span v-if="event.month">{{MONTH[event.month]}}<span v-if="event.day != 0"> {{event.day}}</span>, </span>{{event.year}}</div>
+                            <div class="title">{{piece.name}}</div>
+                            <div class="date" v-if="!piece.img"><span v-if="piece.month">{{MONTH[piece.month]}}<span v-if="piece.day != 0"> {{piece.day}}</span>, </span>{{piece.year}}</div>
                             <div class="details">    
-                                    <div class="place">{{event.loc}}</div>
-                                    <div class="note" v-html="event.note"></div>
+                                <div class="place">{{piece.loc}}</div>
+                                <div class="note" v-html="piece.note"></div>
                             </div>
                         </div>
-                        
-                        <div v-if="event.recId" class="openRecord" @click="setTheaterRecord(event)"></div>
                     </div>
                 </div>
             </div>
@@ -51,8 +49,8 @@
                 <div id="zoomIn" @click="changeEraZoom(5)" class="btn zoom"></div>
                 <div id="zoomOut" @click="changeEraZoom(-5)" class="btn zoom"></div>            
             </div>
-            <div id="addEventBox">
-                <div id="addEvent" class="btn">+ Create Event</div>
+            <div id="addPieceBox">
+                <div id="addPiece" class="btn">+ Add Piece</div>
             </div>
         </div>
     </div>
