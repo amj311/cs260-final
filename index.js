@@ -39,6 +39,9 @@ var app = new Vue ({
             "id":2,
             isNewPlaceholder: true,
             },
+        editingPiece: false,
+        editPieceIdx: null,
+        editOriginal: {},
     },
 
     async created() {
@@ -76,6 +79,28 @@ var app = new Vue ({
         closeAddForm(){
             if(this.addingNew){
                 this.addingNew = false;
+            }
+        },
+
+        openEditForm(piece){
+            if (!this.editingPiece) {
+                this.editPieceIdx = this.gallery.lastIndexOf(piece)
+                Object.assign(this.editOriginal, piece)
+                this.editPiece.hasFocus = true;
+                this.scrollToEl(document.getElementById(piece.idString))
+                this.editingPiece = true;    
+            }
+        },
+        cancelEditForm(){
+            if (this.editingPiece) {
+                Object.assign(this.editPiece, this.editOriginal)
+                this.closeEditForm()    
+            }
+        },
+        closeEditForm(){
+            if (this.editingPiece) {
+                this.editPiece.hasFocus = false;
+                this.editingPiece = false;    
             }
         },
 
@@ -186,6 +211,10 @@ var app = new Vue ({
 
         newPiece() {
             return this.gallery.filter( p => p.isNewPlaceholder )[0]
+        },
+
+        editPiece() {
+            return this.gallery[this.editPieceIdx]
         }
     }
 })

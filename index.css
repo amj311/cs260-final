@@ -163,14 +163,14 @@ div#flatLine {
     max-height: 3rem;
 }
 
-.piecePos:hover, .piecePos.new, .piecePos:target {
+.piecePos:hover, .piecePos.hardFocus, .piecePos.focus, .piecePos:target {
     color: var(--blue);
     border-left-width: 2px;
     z-index: 10;
 }
 
-.addingNew .piecePos:not(.new) {
-    opacity: .7
+.focusOne .piecePos:not(.hardFocus) {
+    opacity: .5
 }
 
 
@@ -183,7 +183,7 @@ div#flatLine {
     top: 0;
     transform: translate(-1px, -90%);
 }
-.piecePos:hover .card, .piecePos.new .card, .piecePos:target .card {
+.piecePos:hover .card, .piecePos.hardFocus .card, .piecePos.focus .card, .piecePos:target .card {
     box-shadow: 0 0 5px;
     margin-left: -1px;
 }
@@ -231,7 +231,7 @@ div#flatLine {
     display: none;
 }
 
-.piecePos:hover .info, .piecePos.new .info, .piecePos:target .info {
+.piecePos:hover .info, .piecePos.hardFocus .info, .piecePos.focus .info, .piecePos:target .info {
     display: block;
 }
 
