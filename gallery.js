@@ -9,6 +9,7 @@ var galleryData = [
         "pos":25,
         "img":"https://farm8.staticflickr.com/7166/6408027119_34c1e88a3b.jpg",
         "period":"15 Cen North Renaissance",
+        note: "",
         "id":2
     },
     {
@@ -20,6 +21,7 @@ var galleryData = [
         "pos":60,
         "img":"https://o.quizlet.com/eJFvlxX-IV-UcFTxmR6sYA.jpg",
         "period":"Northern Baroque",
+        note: "",
         "id":8
     },
     {
@@ -31,6 +33,7 @@ var galleryData = [
         "pos":48,
         "img":"https://o.quizlet.com/7kzUEK.RMDQBvgOOm9Focw.jpg",
         "period":"Southern Baroque",
+        note: "",
         "id":16
     },
     {
@@ -42,6 +45,7 @@ var galleryData = [
         "pos":20,
         "img":"https://o.quizlet.com/THc-D2ivMF5yjxx-cyKyNQ.jpg",
         "period":"High Renaissance",
+        note: "",
         "id":20
     },
     {
@@ -53,6 +57,7 @@ var galleryData = [
         "pos":65,
         "img":"https://o.quizlet.com/X96RdXpT2itiY.jnz9s-kg.png",
         "period":"15 Cen North Renaissance",
+        note: "",
         "id":23
     },
     {
@@ -64,6 +69,7 @@ var galleryData = [
         "pos":48,
         "img":"https://o.quizlet.com/cAV2KI4utRNA-nyw3l4D.w.jpg",
         "period":"16 Cen North Renaissance",
+        note: "",
         "id":24
     },
     {
@@ -75,6 +81,7 @@ var galleryData = [
         "pos":45,
         "img":"https://o.quizlet.com/i/IRBUdw0bBpYMNuSTChaP3w.jpg",
         "period":"High Renaissance",
+        note: "",
         "id":30
     },
     {
@@ -86,6 +93,7 @@ var galleryData = [
         "pos":80,
         "img":"https://o.quizlet.com/yFu3vE56TP9JMVOzPv-AdA.jpg",
         "period":"Southern Baroque",
+        note: "",
         "id":31
     },
     {
@@ -97,6 +105,7 @@ var galleryData = [
         "pos":15,
         "img":"https://o.quizlet.com/kdCXvUm-o8Z6XzlLeTpD1w.jpg",
         "period":"Early Renaissance",
+        note: "",
         "id":34
     },
     {
@@ -108,6 +117,7 @@ var galleryData = [
         "pos":77,
         "img":null,
         "period":"Venetian Renaissance",
+        note: "",
         "id":39
     },
     {
@@ -119,6 +129,7 @@ var galleryData = [
         "pos":45,
         "img":"https://o.quizlet.com/i/TH_CEIZwCTw3wCAvMExOBA.jpg",
         "period":"Northern Baroque",
+        note: "",
         "id":40
     },
     {
@@ -130,6 +141,7 @@ var galleryData = [
         "pos":58,
         "img":"https://o.quizlet.com/7zJsAHpJX7KGMgPuj-e9jQ.jpg",
         "period":"15 Cen North Renaissance",
+        note: "",
         "id":41
     },
     {
@@ -141,6 +153,7 @@ var galleryData = [
         "pos":35,
         "img":"https://o.quizlet.com/i/sgB7SKqS15aXFivmVHuUzg.jpg",
         "period":"Northern Baroque",
+        note: "",
         "id":46
     },
     {
@@ -152,6 +165,7 @@ var galleryData = [
         "pos":25,
         "img":"https://o.quizlet.com/LURL4OsfWKMd0GL9iv2CkQ.jpg",
         "period":"Northern Baroque",
+        note: "",
         "id":47
     }
 ]

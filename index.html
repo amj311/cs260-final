@@ -33,7 +33,7 @@
                         <div class="info">
                             <div class="title">{{piece.name}}</div>
                             <div class="artist">{{piece.artist}}</div>
-                            <div class="date"><span v-if="piece.month">{{MONTH[piece.month]}}<span v-if="piece.day != 0"> {{piece.day}}</span>, </span>{{piece.year}}</div>
+                            <div class="date"><span v-if="piece.month">{{MONTH[piece.month]}}<span v-if="piece.day && piece.day != 0"> {{piece.day}}</span>, </span>{{piece.year}}</div>
                             <div class="period">{{piece.period}}</div>
                             <div class="note" v-html="piece.note"></div>
                         </div>
@@ -84,19 +84,41 @@
                         </p>
                         <p>
                             <label for="artist">Artist</label><br>
-                            <input id="artist" v-model="newPiece.artist">
+                            <input id="artist" list="artistList" v-model="newPiece.artist">
+                            <datalist id="artistList">
+                                <option v-for="option in getOptionsFor(gallery, 'artist')" :value="option"></option>
+                            </datalist>
+                        </p>
+                        <p>
+                            <label for="period">Period</label><br>
+                            <input id="period" list="periodList" v-model="newPiece.period">
+                            <datalist id="periodList">
+                                <option v-for="option in getOptionsFor(gallery, 'period')" :value="option"></option>
+                            </datalist>
+                        </p>
+                        <p>
+                            <label for="img">Image URL</label><br>
+                            <input id="img" v-model="newPiece.img">
                         </p>
                         <p>
                             <label for="year">Year</label><br>
-                            <input id="year" v-model="newPiece.year" @change="setZoom" type="number">
+                            <input id="year" v-model="newPiece.year" @change="setZoom" type="number">        
                         </p>
+                        <div style="display:flex">
+                            <p>
+                                <label for="month">Month</label><br>
+                                <select id="month" v-model="newPiece.month">
+                                    <option v-for="i in MONTH.length" :value="i-1">{{MONTH[i-1]}}</option>
+                                </select>
+                            </p>
+                            <p>
+                                <label for="day">Day</label><br>
+                                <input id="day" v-model="newPiece.day" type="number" min="1" max="31">
+                            </p>
+                        </div>
                         <p>
-                            <label for="month">Month</label><br>
-                            <select id="month" v-model="newPiece.month" @change="setZoom"></select>
-                        </p>
-                        <p>
-                            <label for="day">Day</label><br>
-                            <input id="day" v-model="newPiece.day" type="number" min="1" max="31">
+                            <label for="note">Notes</label><br>
+                            <textarea id="note" v-model="newPiece.note"></textarea>
                         </p>
                         <p>
                             <label for="pos">Position</label><br>

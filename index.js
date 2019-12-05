@@ -23,7 +23,7 @@ var app = new Vue ({
         subsOn: true,
         theaterData: {},
         recordsHTML: null,
-        MONTH: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "Novemeber", "December"],
+        MONTH: ["No Month","January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "Novemeber", "December"],
         isMobile: false,
         dividerHeight: 0,
         addingNew: false,
@@ -79,6 +79,13 @@ var app = new Vue ({
             }
         },
 
+        getOptionsFor(list, prop){
+            let options = [];
+            list.forEach( item => {
+                if (options.lastIndexOf(item[prop]) < 0) options.push(item[prop])
+            })
+            return options;
+        },
 
         setZoom(){
             let years = this.gallery.map(e => e.year)
