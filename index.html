@@ -59,17 +59,8 @@
 
     <div v-show="theaterOn" id="theater">
         <div id="screen">
-            
             <div id="exitTheater" @click="closeTheater">&times;</div>
-
             <div id="imageBox" v-if="theaterMode == 'img'" :style="theaterData.bgSrc"  @click="toggleSubs"></div>
-            
-            <div id="recordBox" v-show="theaterMode == 'rec'" :class="{hand: handFont}">
-                <div id="records" v-html="recordsHTML"></div>
-            </div>
-
-            <div id="toggleFont"  v-show="theaterMode == 'rec'" :class="{hand: handFont}"><label for="handFont">Aa</label><input type="checkbox" v-model="handFont" id="handFont"></div>
-
         </div>
         <div id="subs" v-if="theaterData.hasSubs" v-show="subsOn">
             <div v-if="theaterMode == 'img'">
@@ -77,23 +68,6 @@
                 <p class="notes" v-show="theaterData.note" v-html="theaterData.note"></p>
             </div>
         </div>
-    </div>
-    
-    <div class="modal-wrapper" :class="{on: showModal}">
-        <a @click="closeNote"></a>
-        <div class="modal">
-            <div class="title-bar">
-                <h2>Project Notes</h2>
-                <a @click="closeNote">&times;</a>
-            </div>
-            <div class="modal-body">
-                <section :id="`note_${note.id}`" v-for="note in notes">
-                    <h3>{{note.title || 'Footnote'}}</h3>
-                    <div v-html="note.body"></div>
-                </section>
-            </div>
-        </div>
-            
     </div>
 
 </div>

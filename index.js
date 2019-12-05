@@ -12,9 +12,9 @@ var app = new Vue ({
         dateMin: null,
         dateMax: null,
         startYear: null,
-        numEras: 9,
+        numEras: null,
         eraDuration: null,
-        yearUnit: 20,
+        yearUnit: null,
         minYearUnit: null,
         zoomTimeout: false,
         coverImg: true,
@@ -25,11 +25,7 @@ var app = new Vue ({
         recordsHTML: null,
         MONTH: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "Novemeber", "December"],
         isMobile: false,
-        dividerHeight: 8,
-        handFont: false,
-        showModal: false,
-        notes: [],
-        modalData: {}
+        dividerHeight: 0,
     },
 
     async created() {
@@ -76,22 +72,6 @@ var app = new Vue ({
 
             this.openTheater();
         },
-
-        setTheaterRecord(obj) {
-            this.theaterMode = 'rec';
-            this.theaterData = {}
-            this.theaterData.hasSubs = false;
-            
-            this.openTheater();
-
-            if (obj) {
-                let record = document.getElementById(obj.recId)
-                console.log(record)
-
-                setTimeout( function(){ app.scrollToEl(record) }, 10)
-            }
-
-        },
         scrollToEl(el){
             el.classList.add('focus')
             el.scrollIntoView({behavior: "smooth", block: "start", inline: "start"})
@@ -99,7 +79,6 @@ var app = new Vue ({
         },
 
         openTheater() {
-            this.closeNote()
             this.theaterOn = true;
             this.subsOn = true;
         },
@@ -133,27 +112,6 @@ var app = new Vue ({
 
             document.querySelector('#timeline-box').scrollLeft += delta*35
         },
-
-        toggleHandwriting() {
-            this.handFont = !this.handFont;
-        },
-        findNoteById(id) {
-            return this.notes.filter( n => n.id === id)[0]
-        },
-        openNote(shortId) {
-            this.showModal = true;
-
-            let elId = 'note_' + shortId;
-            let el = document.getElementById(elId)
-            if (el) {
-                // console.log('scrolling to '+elId, el)
-                setTimeout( function(){ app.scrollToEl(el) }, 10)
-            }
-            else console.log('could not find id '+elId)
-        },
-        closeNote(){
-            this.showModal = false;
-        }
     },
 
     computed: {
@@ -177,7 +135,6 @@ var app = new Vue ({
                 let monthPos = piece.month * this.yearUnit / 12;
                 let dayPos = piece.day * this.yearUnit / (12 * 31) 
                 obj.netPos = yearPos + monthPos + dayPos;
-                obj.styles = "";
                 obj.idString = `piece_${array.length}`
 
                 array.push(obj)
@@ -190,8 +147,5 @@ var app = new Vue ({
 
 
 document.addEventListener('keyup', e => {
-    if (e.keyCode === 27 && app.showModal) { return app.closeNote() }
-    else if (e.keyCode === 27 && app.theaterOn) { return app.closeTheater() }
+    if (e.keyCode === 27 && app.theaterOn) { return app.closeTheater() }
 })
-
-document.addEventListener('scroll', app.doScroll)
