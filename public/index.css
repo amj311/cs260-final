@@ -175,6 +175,9 @@ div#flatLine {
     border-left-width: 2px;
     z-index: 10;
 }
+.piecePos.hardFocus {
+    z-index: 11;
+}
 
 .focusOne .piecePos:not(.hardFocus) {
     opacity: .5

@@ -272,6 +272,16 @@ var app = new Vue({
                 let dayPos = piece.day * this.yearUnit / (12 * 31)
                 obj.netPos = yearPos + monthPos + dayPos;
                 obj.idString = `piece_${array.length}`
+                obj.yearStr = piece.year < 0 ?
+                    piece.year+' BC' : piece.year+' AD';
+                
+                obj.dateStr = "";
+                if (piece.month) {
+                    obj.dateStr += this.MONTH[piece.month];
+                    if (piece.day && piece.day != 0) obj.dateStr += ' '+piece.day
+                    obj.dateStr += ', ';
+                }
+                obj.dateStr += obj.yearStr;
 
                 array.push(obj)
             })

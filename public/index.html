@@ -205,6 +205,11 @@
         <div id="subs" v-if="theaterData.hasSubs" v-show="subsOn">
             <div v-if="theaterMode == 'img'">
                 <div class="title">{{theaterData.name}}</div>
+                <div class="details">
+                    {{theaterData.artist}}<br>
+                    {{theaterData.dateStr}}<br>
+                    {{theaterData.period}}<br>
+                </div>
                 <p class="notes" v-show="theaterData.note" v-html="theaterData.note"></p>
             </div>
         </div>
