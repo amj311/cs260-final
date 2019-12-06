@@ -94,22 +94,23 @@ var app = new Vue({
             }
         },
 
-        async deleteItem(item) {
+        async deleteItem() {
             try {
                 console.log("Made it into deleteItem");
-                let response = axios.delete("/api/items/" + item._id);
+                let response = axios.delete("/api/items/" + this.editPiece._id);
                 this.findItem = null;
-                this.getItems();
+                this.getPieces();
+                this.closeEditForm();
                 return true;
             }
             catch (error) {
                 console.log(error);
             }
         },
-        
-        ////////////\\\\\\\\\\\
+
+        ///////////\\\\\\\\\\
         // END CONNOR CODE \\
-        ////////////\\\\\\\\\\\
+        ///////////\\\\\\\\\\
 
         openAddForm() {
             if (!this.addingNew) {
@@ -149,9 +150,9 @@ var app = new Vue({
                 this.editingPiece = true;
             }
         },
-        async submitEdit(){
+        async submitEdit() {
             try {
-                let res = await axios.put('/api/items/'+this.editPiece._id, this.editPiece)
+                let res = await axios.put('/api/items/' + this.editPiece._id, this.editPiece)
                 console.log(res.data)
                 this.getPieces()
                 this.closeEditForm();
