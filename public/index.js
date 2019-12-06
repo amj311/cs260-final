@@ -96,7 +96,7 @@ var app = new Vue({
 
         async deleteItem() {
             try {
-                console.log("Made it into deleteItem");
+                // console.log("Made it into deleteItem");
                 let response = axios.delete("/api/items/" + this.editPiece._id);
                 this.findItem = null;
                 this.getPieces();
@@ -119,9 +119,9 @@ var app = new Vue({
                 this.newPiece.year = Math.floor((document.querySelector('#timeline-box').scrollLeft + 50) / this.yearUnit + this.startYear);
             }
         },
-        async addPiece() {
+        async addPiece(piece) {
             try {
-                let res = await axios.post('/api/items', this.newPiece)
+                let res = await axios.post('/api/items', piece)
                 console.log(res)
                 this.getPieces()
                 this.closeAddForm();

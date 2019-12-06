@@ -3,6 +3,7 @@
     --blue: skyblue;
     --primary: skyblue;
     --secondary: #aaa;
+    --danger: rgb(255, 0, 0);
 }
 
 ::-webkit-scrollbar {
@@ -61,6 +62,12 @@ body {
     color: var(--secondary) !important;
     border-color: var(--secondary) !important;
     background: var(--secondary) !important;
+}
+
+.btn.btn-danger {
+    color: var(--danger) !important;
+    border-color: var(--danger) !important;
+    background: var(--danger) !important;
 }
 
 .btn:not(.btn-outline) {

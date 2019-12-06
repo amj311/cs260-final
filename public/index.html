@@ -81,7 +81,7 @@
 
                 <div v-if="addingNew" id="new_piece">
                     <h2>New Piece</h2>
-                    <form @submit.prevent="addPiece">
+                    <form @submit.prevent="addPiece(newPiece)">
                         <p>
                             <label for="name">Name</label><br>
                             <input id="name" v-model="newPiece.name">
@@ -187,7 +187,7 @@
                         <p>
                             <input type="submit" class="btn btn-primary">
                             <input type="reset" @click="cancelEditForm" class="btn btn-secondary btn-outline" value="Cancel">
-                            <input type="reset" @click="deleteItem" class="btn btn-secondary btn-outline" value="Delete">
+                            <input type="reset" @click="deleteItem" class="btn btn-danger btn-outline" value="Delete">
                         </p>
                     </form>
                 </div>
