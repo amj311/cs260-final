@@ -18,7 +18,12 @@
             <div id="timeline-box" class="fs-inner-wrapper" onwheel="app.doScroll(event)">            
             <div id="markers">
                 <div id="flatLine" :style="{bottom: `${dividerHeight}rem`}"></div>
-                <div v-for="era in eras" class="century-block" :id="era" :style="{width: `${eraWidth}px`}"><div class="era-label">{{era}}</div></div>
+                <div v-for="era in eras" class="century-block" :id="era" :style="{width: `${eraWidth}px`}">
+                    <div class="era-label">
+                        <span v-if="era < 0">{{-era}} BC</span>
+                        <span v-else>{{era}} AD</span>
+                    </div>
+                </div>
             </div>
 
             <div id="gallery">
