@@ -33,7 +33,7 @@
                         <div class="info">
                             <div class="title">{{piece.name}}</div>
                             <div class="artist">{{piece.artist}}</div>
-                            <div class="date"><span v-if="piece.month">{{MONTH[piece.month]}}<span v-if="piece.day && piece.day != 0"> {{piece.day}}</span>, </span>{{piece.year}}</div>
+                            <div class="date">{{piece.dateStr}}</div>
                             <div class="period">{{piece.period}}</div>
                             <div class="note" v-html="piece.note"></div>
                         </div>
