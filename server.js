@@ -21,15 +21,21 @@ const upload = multer({
 const mongoose = require('mongoose');
 
 // connect to the database
-mongoose.connect('mongodb://localhost:27017/timeline', {
+mongoose.connect('mongodb+srv://amj311:be13strong51@cluster0-u6luc.mongodb.net/arthc', {
   useNewUrlParser: true
 });
 
 // Create a scheme for items in the timeline: a title and a path to an image.
 const itemSchema = new mongoose.Schema({
-  title: String,
-  path: String,
-  description: String,
+  name: String,
+  artist: String,
+  day: Number,
+  month: Number,
+  year: Number,
+  pos: Number,
+  img: String,
+  period: String,
+  note: String,
 });
 
 // Create a model for items in the timeline.
@@ -100,9 +106,9 @@ app.put('/api/items/:id', async(req, res) => {
   try {
     console.log("Edit Item");
     var item = await Item.findOne({ _id: req.params.id });
-    item.title = req.body.title;
-    item.description = req.body.description;
-    item.name = req.body.name,
+      item.title = req.body.title;
+      item.description = req.body.description;
+      item.name = req.body.name,
       item.artist = req.body.artist,
       item.day = req.body.day,
       item.month = req.body.month,
@@ -112,6 +118,7 @@ app.put('/api/items/:id', async(req, res) => {
       item.note = req.body.note,
       item.save();
     console.log(item);
+    res.send(item)
   }
   catch (error) {
     console.log(error);

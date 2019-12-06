@@ -42,21 +42,6 @@ var app = new Vue({
         editingPiece: false,
         editPieceIdx: null,
         editOriginal: {},
-        ////////////\\\\\\\\\\\
-        // BEGIN CONNOR CODE \\
-        ////////////\\\\\\\\\\\
-        name: "Woman Holding a Balance",
-        artist: "Johannes Vermeer",
-        day: null,
-        month: null,
-        year: 1663,
-        pos: 60,
-        img: "https://o.quizlet.com/eJFvlxX-IV-UcFTxmR6sYA.jpg",
-        period: "Northern Baroque",
-        note: "",
-        ////////////\\\\\\\\\\\
-        // END CONNOR CODE \\
-        ////////////\\\\\\\\\\\
     },
 
     async created() {
@@ -98,10 +83,10 @@ var app = new Vue({
             }
         },
 
-        async getItems() {
+        async getPieces() {
             try {
                 let response = await axios.get("/api/items");
-                this.items = response.data;
+                this.gallery = response.data;
                 return true;
             }
             catch (error) {
@@ -133,8 +118,16 @@ var app = new Vue({
                 this.newPiece.year = Math.floor((document.querySelector('#timeline-box').scrollLeft + 50) / this.yearUnit + this.startYear);
             }
         },
-        addPiece() {
-            this.closeAddForm();
+        async addPiece() {
+            try {
+                let res = await axios.post('/api/items', this.newPiece)
+                console.log(res)
+                this.getPieces()
+                this.closeAddForm();
+            }
+            catch (error) {
+                console.log(error)
+            }
         },
         cancelAddForm() {
             this.gallery = this.gallery.filter(p => !p.isNewPlaceholder)
@@ -154,6 +147,18 @@ var app = new Vue({
                 this.editPiece.hasFocus = true;
                 this.scrollToEl(document.getElementById(piece.idString))
                 this.editingPiece = true;
+            }
+        },
+        async submitEdit(){
+            try {
+                let res = await axios.put('/api/items/'+this.editPiece._id, this.editPiece)
+                console.log(res.data)
+                this.getPieces()
+                this.closeEditForm();
+                console.log(done)
+            }
+            catch (error) {
+                console.log(error)
             }
         },
         cancelEditForm() {

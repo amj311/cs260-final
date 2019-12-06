@@ -246,6 +246,27 @@ div#flatLine {
     -webkit-box-orient: vertical;
 }
 
+.card .editButton {
+    color: #000;
+    background: #fff;
+    width: 2em;
+    height: 2em;
+    line-height: 2em;
+    font-size: 1.2em;
+    text-align: center;
+    border: 1px solid #00000033;
+    cursor: pointer;
+    display: none;
+}
+.editButton:hover {
+    background: #f3f3f3;
+}
+.piecePos:hover .editButton {
+    display: block;
+}
+.editButton::before {
+    content: '📝';
+}
 
 div#timeline-wrapper #controls > div {
     position: absolute;

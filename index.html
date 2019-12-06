@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Art Gallery</title>
+    <title>LifeSketch</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="index.css" type="text/css" />
+    <link rel="stylesheet" href="./index.css" type="text/css" />
 </head>
 <body>
 <div id="app"  :class="{ mobile: isMobile, focusOne: addingNew || editingPiece }">
@@ -37,9 +37,6 @@
                             <div class="period">{{piece.period}}</div>
                             <div class="note" v-html="piece.note"></div>
                         </div>
-
-                        <div class="editButton" @click="openEditForm(piece)"></div>
-
                     </div>
                 </div>
 
@@ -81,7 +78,7 @@
 
                 <div v-if="addingNew" id="new_piece">
                     <h2>New Piece</h2>
-                    <form @submit.prevent="addPiece">
+                    <form>
                         <p>
                             <label for="name">Name</label><br>
                             <input id="name" v-model="newPiece.name">
@@ -137,7 +134,7 @@
 
                 <div v-if="editingPiece" id="edit_piece">
                     <h2>Edit Piece</h2>
-                    <form @submit.prevent="submitEdit">
+                    <form>
                         <p>
                             <label for="name">Name</label><br>
                             <input id="name" v-model="editPiece.name">
@@ -211,9 +208,9 @@
 
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="index.js"></script>
+<script src="./gallery.js"></script>
+<script src="./index.js"></script>
 
 </body>
 </html>
