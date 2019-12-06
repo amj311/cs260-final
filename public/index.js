@@ -156,7 +156,6 @@ var app = new Vue({
                 console.log(res.data)
                 this.getPieces()
                 this.closeEditForm();
-                console.log(done)
             }
             catch (error) {
                 console.log(error)
