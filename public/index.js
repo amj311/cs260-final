@@ -95,16 +95,19 @@ var app = new Vue({
         },
 
         async deleteItem() {
-            try {
-                // console.log("Made it into deleteItem");
-                let response = axios.delete("/api/items/" + this.editPiece._id);
-                this.findItem = null;
-                this.getPieces();
-                this.closeEditForm();
-                return true;
-            }
-            catch (error) {
-                console.log(error);
+            if (confirm(`Are you sure you want to delete '${this.editPiece.name}?'`))
+            {
+                try {
+                    // console.log("Made it into deleteItem");
+                    let response = axios.delete("/api/items/" + this.editPiece._id);
+                    this.findItem = null;
+                    this.getPieces();
+                    this.closeEditForm();
+                    return true;
+                }
+                catch (error) {
+                    console.log(error);
+                }
             }
         },
 
