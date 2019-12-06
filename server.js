@@ -108,14 +108,14 @@ app.put('/api/items/:id', async(req, res) => {
     var item = await Item.findOne({ _id: req.params.id });
       item.title = req.body.title;
       item.description = req.body.description;
-      item.name = req.body.name,
-      item.artist = req.body.artist,
-      item.day = req.body.day,
-      item.month = req.body.month,
-      item.year = req.body.year,
-      item.pos = req.body.pos,
-      item.period = req.body.period,
-      item.note = req.body.note,
+      item.name = req.body.name;
+      item.artist = req.body.artist;
+      item.day = req.body.day;
+      item.month = req.body.month;
+      item.year = req.body.year;
+      item.pos = req.body.pos;
+      item.period = req.body.period;
+      item.note = req.body.note;
       item.save();
     console.log(item);
     res.send(item)
