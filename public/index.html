@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Art Gallery</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./index.css" type="text/css" />
+</head>
+<body>
+<div id="app"  :class="{ mobile: isMobile, focusOne: addingNew || editingPiece }">
+
+    <div id="main-view">
+
+        <div id="person-summary">
+            <h1>Art Gallery</h1>
+        </div>
+
+        <div id="timeline-wrapper">
+            <div id="timeline-box" class="fs-inner-wrapper" onwheel="app.doScroll(event)">            
+            <div id="markers">
+                <div id="flatLine" :style="{bottom: `${dividerHeight}rem`}"></div>
+                <div v-for="era in eras" class="century-block" :id="era" :style="{width: `${eraWidth}px`}"><div class="era-label">{{era}}</div></div>
+            </div>
+
+            <div id="gallery">
+                <div v-for="piece in galleryEls" :id="piece.idString" :class="{piecePos: true, hasImg: piece.img, hardFocus: piece.isNewPlaceholder || piece.hasFocus}" :style="{left: `${piece.netPos}px`, height: `calc( (100% - ${dividerHeight}rem) * ${piece.pos/100} + ${dividerHeight}rem)`}">
+                    <div class="card">
+
+                        <div v-if="piece.img" class="image">
+                            <img :src="piece.img" :alt="piece.name">
+                            <div class="openTheater" @click="setTheaterImage(piece)"></div>
+                        </div>
+                        
+                        <div class="info">
+                            <div class="title">{{piece.name}}</div>
+                            <div class="artist">{{piece.artist}}</div>
+                            <div class="date"><span v-if="piece.month">{{MONTH[piece.month]}}<span v-if="piece.day && piece.day != 0"> {{piece.day}}</span>, </span>{{piece.year}}</div>
+                            <div class="period">{{piece.period}}</div>
+                            <div class="note" v-html="piece.note"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NEW PIECE PLACEHOLDER
+                <div v-if="addingNew" id="piece_new" :class="{piecePos: true, hasImg: newPiece.img}" :style="{left: `${newPiece.netPos}px`, height: `calc( (100% - ${dividerHeight}rem) * ${newPiece.pos/100} + ${dividerHeight}rem)`}">
+                    <div class="card">
+
+                        <div v-if="newPiece.img" class="image">
+                            <img :src="newPiece.img" :alt="newPiece.name">
+                            <div class="openTheater" @click="setTheaterImage(newPiece)"></div>
+                        </div>
+                        
+                        <div class="info">
+                            <div class="title">{{newPiece.name}}</div>
+                            <div class="artist">{{newPiece.artist}}</div>
+                            <div class="date"><span v-if="newPiece.month">{{MONTH[newPiece.month]}}<span v-if="newPiece.day != 0"> {{newPiece.day}}</span>, </span>{{newPiece.year}}</div>
+                            <div class="period">{{newPiece.period}}</div>
+                            <div class="note" v-html="newPiece.note"></div>
+                        </div>
+                    </div>
+                </div> -->
+
+
+            </div>
+        </div>
+    
+        <div id="controls">
+            <div id="zoomBox">
+                <div id="zoomIn" @click="changeEraZoom(5)" class="btn zoom"></div>
+                <div id="zoomOut" @click="changeEraZoom(-5)" class="btn zoom"></div>            
+            </div>
+            <div id="addPieceBox">
+                <div id="addPiece" @click="openAddForm" class="btn">+ Add Piece</div>
+            </div>
+        </div>
+
+        <div id="right_panel" :class="{open: addingNew || editingPiece}">
+            <div class="content-wrapper">
+
+                <div v-if="addingNew" id="new_piece">
+                    <h2>New Piece</h2>
+                    <form>
+                        <p>
+                            <label for="name">Name</label><br>
+                            <input id="name" v-model="newPiece.name">
+                        </p>
+                        <p>
+                            <label for="artist">Artist</label><br>
+                            <input id="artist" list="artistList" v-model="newPiece.artist">
+                            <datalist id="artistList">
+                                <option v-for="option in getOptionsFor(gallery, 'artist')" :value="option"></option>
+                            </datalist>
+                        </p>
+                        <p>
+                            <label for="period">Period</label><br>
+                            <input id="period" list="periodList" v-model="newPiece.period">
+                            <datalist id="periodList">
+                                <option v-for="option in getOptionsFor(gallery, 'period')" :value="option"></option>
+                            </datalist>
+                        </p>
+                        <p>
+                            <label for="img">Image URL</label><br>
+                            <input id="img" v-model="newPiece.img">
+                        </p>
+                        <p>
+                            <label for="year">Year</label><br>
+                            <input id="year" v-model="newPiece.year" @change="setZoom" type="number">        
+                        </p>
+                        <div style="display:flex">
+                            <p>
+                                <label for="month">Month</label><br>
+                                <select id="month" v-model="newPiece.month">
+                                    <option v-for="i in MONTH.length" :value="i-1">{{MONTH[i-1]}}</option>
+                                </select>
+                            </p>
+                            <p>
+                                <label for="day">Day</label><br>
+                                <input id="day" v-model="newPiece.day" type="number" min="1" max="31">
+                            </p>
+                        </div>
+                        <p>
+                            <label for="note">Notes</label><br>
+                            <textarea id="note" v-model="newPiece.note"></textarea>
+                        </p>
+                        <p>
+                            <label for="pos">Position</label><br>
+                            <input id="pos" v-model="newPiece.pos" type="range" min="6" max="90">
+                        </p>
+                        <p>
+                            <input type="submit" class="btn btn-primary">
+                            <input type="reset" @click="cancelAddForm" class="btn btn-secondary btn-outline" value="Cancel">
+                        </p>
+                    </form>
+                </div>
+
+                <div v-if="editingPiece" id="edit_piece">
+                    <h2>Edit Piece</h2>
+                    <form>
+                        <p>
+                            <label for="name">Name</label><br>
+                            <input id="name" v-model="editPiece.name">
+                        </p>
+                        <p>
+                            <label for="artist">Artist</label><br>
+                            <input id="artist" list="artistList" v-model="editPiece.artist">
+                            <datalist id="artistList">
+                                <option v-for="option in getOptionsFor(gallery, 'artist')" :value="option"></option>
+                            </datalist>
+                        </p>
+                        <p>
+                            <label for="period">Period</label><br>
+                            <input id="period" list="periodList" v-model="editPiece.period">
+                            <datalist id="periodList">
+                                <option v-for="option in getOptionsFor(gallery, 'period')" :value="option"></option>
+                            </datalist>
+                        </p>
+                        <p>
+                            <label for="img">Image URL</label><br>
+                            <input id="img" v-model="editPiece.img">
+                        </p>
+                        <p>
+                            <label for="year">Year</label><br>
+                            <input id="year" v-model="editPiece.year" @change="setZoom" type="number">        
+                        </p>
+                        <div style="display:flex">
+                            <p>
+                                <label for="month">Month</label><br>
+                                <select id="month" v-model="editPiece.month">
+                                    <option v-for="i in MONTH.length" :value="i-1">{{MONTH[i-1]}}</option>
+                                </select>
+                            </p>
+                            <p>
+                                <label for="day">Day</label><br>
+                                <input id="day" v-model="editPiece.day" type="number" min="1" max="31">
+                            </p>
+                        </div>
+                        <p>
+                            <label for="note">Notes</label><br>
+                            <textarea id="note" v-model="editPiece.note"></textarea>
+                        </p>
+                        <p>
+                            <label for="pos">Position</label><br>
+                            <input id="pos" v-model="editPiece.pos" type="range" min="6" max="90">
+                        </p>
+                        <p>
+                            <input type="submit" class="btn btn-primary">
+                            <input type="reset" @click="cancelEditForm" class="btn btn-secondary btn-outline" value="Cancel">
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+    </div>
+
+    <div v-show="theaterOn" id="theater">
+        <div id="screen">
+            <div id="exitTheater" @click="closeTheater">&times;</div>
+            <div id="imageBox" v-if="theaterMode == 'img'" :style="theaterData.bgSrc"  @click="toggleSubs"></div>
+        </div>
+        <div id="subs" v-if="theaterData.hasSubs" v-show="subsOn">
+            <div v-if="theaterMode == 'img'">
+                <div class="title">{{theaterData.name}}</div>
+                <p class="notes" v-show="theaterData.note" v-html="theaterData.note"></p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="./gallery.js"></script>
+<script src="./index.js"></script>
+
+</body>
+</html>
