@@ -318,7 +318,7 @@ div#zoomOut::before {
 
 /* Right Panel and Form */
 div#right_panel {
-    z-index: 10;
+    z-index: 15;
     background: #fff;
     box-shadow: 0 0 1em -0.5em;
     width: 0;
