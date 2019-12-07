@@ -180,7 +180,8 @@ div#flatLine {
 }
 
 .focusOne .piecePos:not(.hardFocus) {
-    opacity: .5
+    opacity: .5;
+    pointer-events: none;
 }
 
 
@@ -199,27 +200,35 @@ div#flatLine {
 }
 
 .card > * {
-    margin: .5em;
+    margin: .5rem;
 }
 .image {
     position: relative;
     color: #fff;
 }
+.hasImg .image {
+    font-size: 0;
+    min-width: 4rem;
+    min-height: 4rem;
+    background-image: url(/images/loading.gif);
+    background-position: center;
+    background-repeat: no-repeat;
+}
 .image img {
-    height: 7em;
+    height: 7rem;
     max-height: 13vh;
     width: auto;
 }
 .image .openTheater {
     display: none;
     position: absolute;
-    top: .2em;
-    right: .2em;
-    font-size: 1em;
-    line-height: 1.8em;
-    width: 1.8em;
+    top: .2rem;
+    right: .2rem;
+    font-size: 1rem;
+    line-height: 1.8rem;
+    width: 1.8rem;
     text-align: center;
-    border-radius: .3em;
+    border-radius: .3rem;
     background: #00000055;
     cursor: pointer;
 }

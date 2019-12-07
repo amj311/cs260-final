@@ -117,7 +117,7 @@ var app = new Vue({
         ///////////\\\\\\\\\\
 
         openAddForm() {
-            if (!this.addingNew) {
+            if (!this.editingPiece && !this.addingNew) {
                 this.gallery.push(Object.assign({},this.newPieceDefault))
                 this.newPiece.year = Math.floor((document.querySelector('#timeline-box').scrollLeft + 50) / this.yearUnit + this.startYear);
                 this.addingNew = true;
@@ -149,7 +149,7 @@ var app = new Vue({
         },
 
         openEditForm(piece) {
-            if (!this.editingPiece) {
+            if (!this.editingPiece && !this.addingNew) {
                 this.editPieceIdx = this.gallery.lastIndexOf(piece)
                 Object.assign(this.editOriginal, piece)
                 this.editPiece.hasFocus = true;
