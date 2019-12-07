@@ -33,6 +33,7 @@ var app = new Vue({
             "day": null,
             "month": null,
             "year": null,
+            "displayYear": false,
             "pos": 50,
             "img": null,
             "period": null,
@@ -117,10 +118,14 @@ var app = new Vue({
 
         openAddForm() {
             if (!this.addingNew) {
-                this.addingNew = true;
                 this.gallery.push(Object.assign({},this.newPieceDefault))
                 this.newPiece.year = Math.floor((document.querySelector('#timeline-box').scrollLeft + 50) / this.yearUnit + this.startYear);
+                this.addingNew = true;
             }
+        },
+        handleChangeAddYear(){
+            this.setZoom()
+            // this.scrollToEl(document.querySelector('.piecePos.hardFocus')) 
         },
         async addPiece(piece) {
             try {
@@ -135,7 +140,6 @@ var app = new Vue({
         },
         cancelAddForm() {
             this.gallery = this.gallery.filter(p => !p.isNewPlaceholder)
-            this.setZoom();
             this.closeAddForm();
         },
         closeAddForm() {
