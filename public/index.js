@@ -35,7 +35,7 @@ var app = new Vue({
             "year": null,
             "pos": 50,
             "img": null,
-            "period": "15 Cen North Renaissance",
+            "period": null,
             "id": 2,
             isNewPlaceholder: true,
         },
@@ -118,7 +118,7 @@ var app = new Vue({
         openAddForm() {
             if (!this.addingNew) {
                 this.addingNew = true;
-                this.gallery.push(this.newPieceDefault)
+                this.gallery.push(Object.assign({},this.newPieceDefault))
                 this.newPiece.year = Math.floor((document.querySelector('#timeline-box').scrollLeft + 50) / this.yearUnit + this.startYear);
             }
         },
