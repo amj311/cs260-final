@@ -15,7 +15,7 @@
         </div>
 
         <div id="timeline-wrapper">
-            <div id="timeline-box" class="fs-inner-wrapper" onwheel="app.doScroll(event)">            
+            <div id="timeline-box" class="fs-inner-wrapper" onwheel="app.handleTimelineScroll(event)">            
             <div id="markers">
                 <div id="flatLine" :style="{bottom: `${dividerHeight}rem`}"></div>
                 <div v-for="era in eras" class="century-block" :id="era" :style="{width: `${eraWidth}px`}">
@@ -73,8 +73,8 @@
     
         <div id="controls">
             <div id="zoomBox">
-                <div id="zoomIn" @click="changeEraZoom(5)" class="btn zoom"></div>
-                <div id="zoomOut" @click="changeEraZoom(-5)" class="btn zoom"></div>            
+                <div id="zoomIn" @click="handleButtonZoom(5)" class="btn zoom"></div>
+                <div id="zoomOut" @click="handleButtonZoom(-5)" class="btn zoom"></div>            
             </div>
             <div id="addPieceBox">
                 <div id="addPiece" @click="openAddForm" class="btn">+ Add Piece</div>

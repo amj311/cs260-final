@@ -234,27 +234,48 @@ var app = new Vue({
             this.subsOn = !this.subsOn;
         },
 
-        doScroll(piece) {
-            var y = piece.deltaY;
+        handleTimelineScroll(e) {
+            var y = e.deltaY;
             let ival = 50;
 
             if (y != 0 && !this.zoomTimeout) {
                 if (Math.abs(y) > 1) {
-                    this.changeEraZoom(y / 500)
+                    let oldUnit = this.yearUnit;
+
+                    let delta = y / 500;
+                    this.changeEraZoom(delta)
+
+                    // modify scroll position relative to mouse
+                    let scrollBox = document.querySelector('#timeline-box');
+                    let vp = scrollBox.getBoundingClientRect();
+                    let mouseX = e.clientX - vp.x;
+                    console.log(mouseX)
+
+                    let newMPos = (scrollBox.scrollLeft + mouseX) * this.yearUnit / oldUnit;
+                    console.log(newMPos, mouseX)
+                    scrollBox.scrollLeft = newMPos - mouseX;
 
                     this.zoomTimeout = true;
-
                     setTimeout(function() { app.zoomTimeout = false }, ival)
                 }
             }
         },
 
-        changeEraZoom(delta) {
+        handleButtonZoom(delta){
             let oldUnit = this.yearUnit;
+            this.changeEraZoom(delta)
+
+            // modify scroll position to maintain center
+            let scrollBox = document.querySelector('#timeline-box');
+            let vp = scrollBox.getBoundingClientRect();
+            let newMPos = (scrollBox.scrollLeft + vp.width/2) * this.yearUnit / oldUnit;
+            console.log(newMPos, vp.width/2)
+            scrollBox.scrollLeft = newMPos - vp.width/2;
+        },
+
+        changeEraZoom(delta) {
             this.yearUnit = Math.max(this.minYearUnit, this.yearUnit + delta);
             // console.log(this.minYearUnit, this.yearUnit);
-
-            document.querySelector('#timeline-box').scrollLeft *= this.yearUnit / oldUnit;
         },
     },
 
