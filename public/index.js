@@ -249,10 +249,8 @@ var app = new Vue({
                     let scrollBox = document.querySelector('#timeline-box');
                     let vp = scrollBox.getBoundingClientRect();
                     let mouseX = e.clientX - vp.x;
-                    console.log(mouseX)
 
                     let newMPos = (scrollBox.scrollLeft + mouseX) * this.yearUnit / oldUnit;
-                    console.log(newMPos, mouseX)
                     scrollBox.scrollLeft = newMPos - mouseX;
 
                     this.zoomTimeout = true;
@@ -269,7 +267,6 @@ var app = new Vue({
             let scrollBox = document.querySelector('#timeline-box');
             let vp = scrollBox.getBoundingClientRect();
             let newMPos = (scrollBox.scrollLeft + vp.width/2) * this.yearUnit / oldUnit;
-            console.log(newMPos, vp.width/2)
             scrollBox.scrollLeft = newMPos - vp.width/2;
         },
 
