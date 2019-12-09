@@ -15,7 +15,7 @@
         </div>
 
         <div id="timeline-wrapper">
-            <div id="timeline-box" class="fs-inner-wrapper" onwheel="app.handleTimelineScroll(event)">            
+            <div id="timeline-box" class="fs-inner-wrapper" onwheel="app.handleTimelineScroll(event)">
             <div id="markers">
                 <div id="flatLine" :style="{bottom: `${dividerHeight}rem`}"></div>
                 <div v-for="era in eras" class="century-block" :id="era" :style="{width: `${eraWidth}px`}">
@@ -47,26 +47,6 @@
 
                     </div>
                 </div>
-
-                <!-- NEW PIECE PLACEHOLDER
-                <div v-if="addingNew" id="piece_new" :class="{piecePos: true, hasImg: newPiece.img}" :style="{left: `${newPiece.netPos}px`, height: `calc( (100% - ${dividerHeight}rem) * ${newPiece.pos/100} + ${dividerHeight}rem)`}">
-                    <div class="card">
-
-                        <div v-if="newPiece.img" class="image">
-                            <img :src="newPiece.img" :alt="newPiece.name">
-                            <div class="openTheater" @click="setTheaterImage(newPiece)"></div>
-                        </div>
-                        
-                        <div class="info">
-                            <div class="title">{{newPiece.name}}</div>
-                            <div class="artist">{{newPiece.artist}}</div>
-                            <div class="date"><span v-if="newPiece.month">{{MONTH[newPiece.month]}}<span v-if="newPiece.day != 0"> {{newPiece.day}}</span>, </span>{{newPiece.year}}</div>
-                            <div class="period">{{newPiece.period}}</div>
-                            <div class="note" v-html="newPiece.note"></div>
-                        </div>
-                    </div>
-                </div> -->
-
 
             </div>
         </div>
