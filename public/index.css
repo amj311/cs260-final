@@ -258,11 +258,17 @@ div#flatLine {
     font-weight: bold;
 }
 
+
 .card .note {
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+    margin-top: .5em;
+}
+.card .note::before {
+    content: 'Notes:';
+    font-style: italic;
 }
 
 .card .editButton {
